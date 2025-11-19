@@ -3,399 +3,620 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emna Rajhi | AI & Agents Engineer</title>
+    <title>Emna Rajhi | AI & Multi-Agent Architect</title>
     
-    <!-- Fonts: Outfit (Headings) & Inter (Body) -->
+    <!-- Typography: Outfit for Headlines, Inter for reading, JetBrains Mono for Code -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;800&family=Space+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@300;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- 1. PASTEL TECH PALETTE --- */
+        /* --- 1. THE PASTEL CYBER PALETTE --- */
         :root {
             /* Backgrounds */
-            --bg-dark: #12101f;       /* Deep Plum/Navy */
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-deep: #1a1a2e;       /* Dark Navy/Plum */
+            --bg-glass: rgba(255, 255, 255, 0.04);
+            --border-glass: rgba(255, 255, 255, 0.08);
             
-            /* Pastels (The 100k Look) */
-            --pastel-pink: #ffb7b2;
-            --pastel-purple: #c7ceea;
-            --pastel-mint: #b5ead7;
-            --pastel-lavender: #e2f0cb;
-            
-            /* Gradients */
-            --grad-main: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
-            --grad-glow: radial-gradient(circle, rgba(199, 206, 234, 0.15) 0%, transparent 70%);
+            /* The "100k" Pastels */
+            --pastel-rose: #ffb7b2;   /* Soft Red */
+            --pastel-lavender: #e0c3fc; /* Light Purple */
+            --pastel-mint: #b5ead7;   /* Soft Green */
+            --pastel-blue: #a0c4ff;   /* Soft Blue */
             
             /* Text */
             --text-white: #ffffff;
-            --text-mute: #aab0c6;
+            --text-muted: #aeb3cb;
+            
+            /* Gradients */
+            --grad-main: linear-gradient(135deg, var(--pastel-lavender), var(--pastel-rose));
         }
 
-        /* --- 2. RESET & BASE --- */
+        /* --- 2. RESET & CORE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-deep);
             color: var(--text-white);
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
             line-height: 1.7;
+            overflow-x: hidden;
         }
 
-        /* --- 3. FLOATING BACKGROUND BLOBS --- */
-        .blob-cont {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden;
+        /* --- 3. ANIMATED BACKGROUND --- */
+        .background-fx {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden;
         }
         .blob {
-            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
-            animation: float 10s infinite alternate;
+            position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.3;
+            animation: move 15s infinite alternate;
         }
-        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #624CAB; }
-        .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #B66DFF; animation-delay: -5s; }
-        .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #00B4D8; opacity: 0.2; }
+        .b1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #5d3f9e; }
+        .b2 { bottom: -10%; right: -10%; width: 600px; height: 600px; background: #892cdc; animation-delay: -5s; }
+        .b3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #2d6a4f; opacity: 0.15; }
 
-        @keyframes float { from { transform: translate(0,0); } to { transform: translate(30px, 50px); } }
+        @keyframes move { from { transform: translate(0,0); } to { transform: translate(40px, 40px); } }
 
         /* --- 4. UTILITIES --- */
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 30px; }
         .section-pad { padding: 120px 0; }
         
         .gradient-text {
-            background: var(--grad-main);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: inline-block;
-            font-weight: 800;
+            background: var(--grad-main); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            display: inline-block; font-weight: 800;
+        }
+        
+        .badge {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            padding: 5px 12px; border-radius: 50px;
+            border: 1px solid var(--border-glass);
+            background: rgba(255,255,255,0.05); color: var(--pastel-lavender);
+            display: inline-block; margin-bottom: 15px;
         }
 
-        /* --- 5. NAV (FROSTED GLASS) --- */
+        /* --- 5. NAV (GLASS) --- */
         nav {
-            position: fixed; top: 0; width: 100%; z-index: 999;
-            padding: 15px 0;
-            background: rgba(18, 16, 31, 0.7);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border);
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 15px 0; background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-glass);
         }
-        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { 
+            font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; 
+            color: var(--text-white); letter-spacing: -1px;
+        }
+        .logo span { color: var(--pastel-rose); font-size: 2.2rem; } /* The Dot */
+
         .nav-links { display: flex; gap: 30px; }
         .nav-links a {
-            color: var(--text-mute); text-decoration: none; font-size: 0.9rem; transition: 0.3s;
+            color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: 0.3s;
         }
-        .nav-links a:hover { color: var(--pastel-pink); }
+        .nav-links a:hover { color: var(--pastel-lavender); }
 
         /* --- 6. HERO SECTION --- */
         .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 60px; }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
-        
-        .badge {
-            display: inline-block; padding: 6px 16px; border-radius: 50px;
-            background: rgba(255, 183, 178, 0.1); border: 1px solid rgba(255, 183, 178, 0.3);
-            color: var(--pastel-pink); font-family: 'Space Mono', monospace; font-size: 0.8rem;
-            margin-bottom: 20px;
-        }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
 
-        h1 { font-family: 'Outfit', sans-serif; font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
+        h1 { font-family: 'Outfit', sans-serif; font-size: clamp(3rem, 5vw, 4.8rem); line-height: 1.1; margin-bottom: 25px; }
         
         .typewriter {
-            font-size: 1.4rem; color: var(--text-mute); margin-bottom: 40px; font-family: 'Inter', sans-serif;
+            font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: var(--pastel-mint); margin-bottom: 40px;
         }
-        .cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--pastel-mint); animation: blink 1s infinite; vertical-align: middle; }
+        .cursor { display: inline-block; width: 8px; height: 1.2em; background: var(--pastel-rose); animation: blink 1s infinite; }
 
-        .btn {
-            padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: 0.3s; display: inline-block;
+        .hero-btn {
+            padding: 16px 36px; border-radius: 12px; text-decoration: none; font-weight: 600;
+            background: var(--pastel-lavender); color: var(--bg-deep); transition: 0.3s;
+            display: inline-block; box-shadow: 0 10px 30px rgba(224, 195, 252, 0.3);
         }
-        .btn-main {
-            background: linear-gradient(90deg, #ffb7b2, #c7ceea); color: #12101f;
-            box-shadow: 0 10px 30px rgba(255, 183, 178, 0.3);
+        .hero-btn:hover { transform: translateY(-3px); background: white; }
+
+        .profile-frame {
+            position: relative; padding: 10px; border: 1px solid var(--border-glass);
+            background: var(--bg-glass); border-radius: 20px; backdrop-filter: blur(5px);
         }
-        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255, 183, 178, 0.5); }
+        .profile-img { width: 100%; border-radius: 15px; display: block; transition: 0.5s; }
+        .profile-frame:hover .profile-img { transform: scale(1.02); filter: saturate(1.1); }
+
+        /* --- 7. DEFINITIONS (The "Detail" Part) --- */
+        .def-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 50px; }
+        .def-card {
+            background: var(--bg-glass); padding: 25px; border-radius: 15px; border: 1px solid var(--border-glass);
+        }
+        .def-icon { font-size: 2rem; color: var(--pastel-rose); margin-bottom: 15px; }
+        .def-card h3 { font-family: 'Outfit', sans-serif; margin-bottom: 10px; color: white; }
+        .def-card p { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* --- 8. EXPERIENCE TIMELINE --- */
+        .timeline { position: relative; border-left: 2px solid var(--border-glass); padding-left: 40px; margin-left: 10px; }
         
-        .profile-box {
-            position: relative; padding: 10px; border-radius: 30px;
-            background: var(--glass); border: 1px solid var(--border);
+        .exp-card {
+            position: relative; margin-bottom: 60px; background: var(--bg-glass);
+            padding: 30px; border-radius: 16px; border: 1px solid var(--border-glass);
+            transition: 0.4s;
         }
-        .profile-img {
-            width: 100%; border-radius: 20px; display: block;
-            filter: saturate(1.1); transition: 0.5s;
-        }
-        .profile-box:hover .profile-img { transform: scale(1.02); }
-
-        /* --- 7. EXPERIENCE (Connecting Lines) --- */
-        .exp-list { position: relative; padding-left: 30px; border-left: 2px solid var(--border); margin-left: 10px; }
+        .exp-card:hover { border-color: var(--pastel-lavender); transform: translateX(10px); }
         
-        .card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            padding: 30px; border-radius: 20px; margin-bottom: 40px;
-            position: relative; transition: 0.4s; backdrop-filter: blur(10px);
+        .timeline-dot {
+            position: absolute; left: -51px; top: 30px; width: 20px; height: 20px;
+            background: var(--bg-deep); border: 3px solid var(--pastel-mint); border-radius: 50%;
         }
-        .card:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--pastel-purple);
-            transform: translateX(10px);
+
+        .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;}
+        .exp-logo { height: 45px; width: auto; object-fit: contain; background: white; padding: 5px; border-radius: 8px; margin-right: 15px; }
+        
+        .exp-title h3 { font-size: 1.4rem; font-weight: 700; }
+        .exp-title span { color: var(--pastel-blue); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+        
+        .exp-desc { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px; }
+        .exp-desc strong { color: white; font-weight: 600; }
+
+        .tech-row { display: flex; flex-wrap: wrap; gap: 8px; }
+        .pill {
+            font-size: 0.75rem; padding: 5px 12px; border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.1); color: var(--pastel-mint);
+            font-family: 'JetBrains Mono', monospace; background: rgba(255,255,255,0.02);
+        }
+
+        /* --- 9. PROJECTS (The "Lab") --- */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .project-card {
+            background: var(--bg-glass); border: 1px solid var(--border-glass);
+            border-radius: 16px; padding: 30px; transition: 0.3s;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--pastel-rose); }
+        
+        .folder-icon { font-size: 2.5rem; color: var(--pastel-lavender); margin-bottom: 20px; }
+        .project-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 10px; color: white; }
+        .project-detail { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+        
+        /* --- 10. CERTIFICATIONS (Categorized) --- */
+        .cert-section-title { 
+            font-family: 'JetBrains Mono', monospace; color: var(--pastel-mint); 
+            margin-bottom: 20px; border-bottom: 1px solid var(--border-glass); 
+            padding-bottom: 10px; display: inline-block;
         }
         
-        .dot {
-            position: absolute; left: -41px; top: 30px;
-            width: 20px; height: 20px; background: var(--bg-dark);
-            border: 4px solid var(--pastel-pink); border-radius: 50%;
-        }
-
-        .card-header { display: flex; align-items: center; margin-bottom: 15px; }
-        .logo-icon { width: 40px; height: 40px; object-fit: contain; margin-right: 15px; background: white; border-radius: 8px; padding: 4px; }
-        .role { font-size: 1.2rem; font-weight: 700; color: white; }
-        .company { color: var(--pastel-pink); font-family: 'Space Mono', monospace; }
-        .date { margin-left: auto; font-size: 0.85rem; color: var(--text-mute); }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
-        .tag {
-            font-size: 0.75rem; padding: 6px 12px; border-radius: 20px;
-            background: rgba(181, 234, 215, 0.1); color: var(--pastel-mint);
-            font-family: 'Space Mono', monospace;
-        }
-
-        /* --- 8. CERTIFICATIONS GRID --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        .cert-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px; }
         
-        .cert-card {
-            background: var(--bg-card); padding: 24px; border-radius: 16px;
-            border: 1px solid var(--border); display: flex; align-items: center; gap: 15px;
+        .cert-item {
+            display: flex; align-items: center; padding: 15px; border-radius: 10px;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass);
             transition: 0.3s;
         }
-        .cert-card:hover { border-color: var(--pastel-mint); transform: translateY(-5px); }
+        .cert-item:hover { background: rgba(255,255,255,0.05); }
         
-        .cert-logo { width: 45px; height: 45px; object-fit: contain; background: white; padding: 5px; border-radius: 50%; }
+        .cert-img { width: 40px; height: 40px; background: white; padding: 4px; border-radius: 50%; object-fit: contain; margin-right: 15px; }
+        .cert-info h4 { font-size: 0.95rem; font-weight: 600; line-height: 1.2; }
+        .cert-info p { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
 
-        /* --- 9. CONTACT --- */
-        .contact { text-align: center; max-width: 600px; margin: 0 auto; }
+        /* --- 11. CONTACT --- */
+        .contact-box { text-align: center; max-width: 600px; margin: 0 auto; }
         .socials { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
-        .social-link {
-            width: 50px; height: 50px; border-radius: 50%; background: var(--glass);
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 1.2rem; transition: 0.3s; border: 1px solid var(--border);
+        .social-btn {
+            width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--border-glass);
+            display: flex; align-items: center; justify-content: center; color: var(--text-muted);
+            transition: 0.3s; font-size: 1.2rem;
         }
-        .social-link:hover { background: var(--pastel-pink); color: var(--bg-dark); transform: scale(1.1); }
+        .social-btn:hover { background: var(--pastel-lavender); color: var(--bg-deep); transform: scale(1.1); }
 
-        /* Animation Helper */
+        /* Animation Helpers */
         @keyframes blink { 50% { opacity: 0; } }
         .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        @media(max-width:768px) {
+        @media(max-width: 768px) {
             .hero-grid { grid-template-columns: 1fr; text-align: center; }
-            .date { display: none; } /* Hide dates on mobile for space */
-            .exp-list { border: none; padding: 0; margin: 0; }
-            .dot { display: none; }
+            .timeline { padding-left: 0; margin-left: 0; border: none; }
+            .timeline-dot { display: none; }
             .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Blobs -->
-    <div class="blob-cont">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+    <!-- Background Motion -->
+    <div class="background-fx">
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
+        <div class="blob b3"></div>
     </div>
 
+    <!-- Nav -->
     <nav>
-        <div class="container nav-flex">
-            <div class="logo">Emna<span style="color:var(--pastel-pink)">.</span>AI</div>
+        <div class="container nav-inner">
+            <div class="logo">ER<span>.</span></div>
             <div class="nav-links">
+                <a href="#philosophy">About</a>
                 <a href="#experience">Experience</a>
-                <a href="#certifications">Certifications</a>
-                <a href="mailto:Emna.Rajhi@esprit.tn">Contact</a>
+                <a href="#projects">Projects</a>
+                <a href="#certs">Certifications</a>
+                <a href="mailto:Emna.Rajhi@esprit.tn" style="color:var(--pastel-rose)">Hire Me</a>
             </div>
         </div>
     </nav>
 
+    <!-- Hero -->
     <section class="hero container">
         <div class="hero-grid">
             <div>
-                <div class="badge">✨ AI AGENTS ARCHITECT</div>
-                <h1>Hi, I'm Emna Rajhi.<br><span class="gradient-text">Building Intelligent Systems.</span></h1>
+                <div class="badge">OPEN FOR END-OF-STUDY INTERNSHIP</div>
+                <h1>Emna Rajhi<br><span class="gradient-text">AI Agent Architect</span></h1>
                 
                 <div class="typewriter">
-                    Specialized in <span id="typing-text" style="color:var(--pastel-mint)"></span><span class="cursor"></span>
+                    > Building <span id="type-text"></span><span class="cursor"></span>
                 </div>
 
-                <a href="#experience" class="btn btn-main">See My Work</a>
+                <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem;">
+                    Data Science Engineer combining <strong>Multi-Agent Orchestration</strong>, <strong>RAG Pipelines</strong>, and <strong>Constraint-Based NLP</strong> to solve complex enterprise problems.
+                </p>
+
+                <a href="#experience" class="hero-btn">View Architecture</a>
             </div>
             
-            <div class="profile-box">
-                <!-- IMAGE PATH: Directly "profile.jpg" -->
+            <div class="profile-frame">
+                <!-- Image: profile.jpg -->
                 <img src="profile.jpg" alt="Emna Rajhi" class="profile-img" onerror="this.style.display='none'">
             </div>
         </div>
     </section>
 
+    <!-- Philosophy / Definitions -->
+    <section id="philosophy" class="container section-pad">
+        <div class="def-grid reveal">
+            <div class="def-card">
+                <i class="fa-solid fa-brain def-icon"></i>
+                <h3>Agentic AI</h3>
+                <p>Systems that don't just predict, but <em>act</em>. I build autonomous agents that reason, plan, and execute tasks using LLMs as the cognitive engine.</p>
+            </div>
+            <div class="def-card">
+                <i class="fa-solid fa-layer-group def-icon"></i>
+                <h3>RAG Systems</h3>
+                <p>Retrieval-Augmented Generation. Grounding AI in your specific data to eliminate hallucinations and provide accurate, context-aware answers.</p>
+            </div>
+            <div class="def-card">
+                <i class="fa-solid fa-network-wired def-icon"></i>
+                <h3>Knowledge Graphs</h3>
+                <p>Structuring unstructured data into entities and relationships (Nodes & Edges) to give AI systems logical reasoning capabilities.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
     <section id="experience" class="container section-pad">
-        <h2 style="font-size: 2.5rem; margin-bottom: 60px;">Experience</h2>
+        <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 60px;">The Architecture</h2>
         
-        <div class="exp-list">
+        <div class="timeline">
             
-            <!-- Job 1 -->
-            <div class="card reveal">
-                <div class="dot"></div>
-                <div class="card-header">
-                    <!-- IMAGE PATH: Directly "farness.png" -->
-                    <img src="farness.png" alt="Farness" class="logo-icon" onerror="this.style.display='none'">
-                    <div>
-                        <div class="role">AI Intern (Agents & LLM)</div>
-                        <div class="company">Farness B2G</div>
+            <!-- JOB 1: FARNESS -->
+            <div class="exp-card reveal">
+                <div class="timeline-dot"></div>
+                <div class="exp-header">
+                    <div style="display:flex; align-items:center;">
+                        <img src="farness.png" alt="Farness" class="exp-logo" onerror="this.style.display='none'">
+                        <div class="exp-title">
+                            <h3>AI Intern (Multi-Agent Systems)</h3>
+                            <span>Farness (B2G) • Feb 2025 - Present</span>
+                        </div>
                     </div>
-                    <div class="date">Feb 2025 - Present</div>
                 </div>
-                <p style="color:var(--text-mute)">
-                    Designing a multi-agent system for autonomous drones. Orchestrating <strong>Llama 4</strong> via <strong>LangChain</strong> & <strong>RAG</strong> to execute complex missions. Using <strong>Qdrant</strong> for vector memory and Docker for deployment.
-                </p>
-                <div class="tags">
-                    <span class="tag">Multi-Agent</span>
-                    <span class="tag">LangChain</span>
-                    <span class="tag">RAG</span>
-                    <span class="tag">GenAI</span>
+                <div class="exp-desc">
+                    Developed a comprehensive <strong>Autonomous Drone Mission Planner</strong>. 
+                    <br><br>
+                    • <strong>Agent Orchestration:</strong> Built a multi-agent system using <strong>LangChain</strong> and <strong>LangGraph</strong> where agents (Planner, Navigator, Monitor) collaborate.
+                    <br>
+                    • <strong>Cognitive Engine:</strong> Utilized <strong>Llama 4</strong> (via Groq) for reasoning and <strong>Mem0</strong> for persistent agent memory across sessions.
+                    <br>
+                    • <strong>Data & Deployment:</strong> Implemented <strong>RAG</strong> for context retrieval using <strong>Qdrant</strong> vector database. Containerized the entire stack with <strong>Docker</strong>.
+                </div>
+                <div class="tech-row">
+                    <span class="pill">LangGraph</span>
+                    <span class="pill">Llama 4</span>
+                    <span class="pill">RAG</span>
+                    <span class="pill">Docker</span>
+                    <span class="pill">Qdrant</span>
+                    <span class="pill">Groq</span>
                 </div>
             </div>
 
-            <!-- Job 2 -->
-            <div class="card reveal">
-                <div class="dot"></div>
-                <div class="card-header">
-                    <img src="esprit.png" alt="Esprit" class="logo-icon" onerror="this.style.display='none'">
-                    <div>
-                        <div class="role">Data Science Researcher</div>
-                        <div class="company">ESPRIT Lab</div>
+            <!-- JOB 2: ESPRIT -->
+            <div class="exp-card reveal">
+                <div class="timeline-dot"></div>
+                <div class="exp-header">
+                    <div style="display:flex; align-items:center;">
+                        <img src="esprit.png" alt="Esprit" class="exp-logo" onerror="this.style.display='none'">
+                        <div class="exp-title">
+                            <h3>Data Science Researcher</h3>
+                            <span>ESPRIT Lab • Jun 2024 - Sep 2024</span>
+                        </div>
                     </div>
-                    <div class="date">Jun 2024 - Sep 2024</div>
                 </div>
-                <p style="color:var(--text-mute)">
-                    Conducted research on Constrained Text Generation. Fine-tuned Transformers (T5, BART, GPT-2) and published a scientific paper.
-                </p>
-                <div class="tags">
-                    <span class="tag">NLP</span>
-                    <span class="tag">PyTorch</span>
-                    <span class="tag">Research</span>
+                <div class="exp-desc">
+                    <strong>Scientific Publication:</strong> "Constrained Text Generation Optimization."
+                    <br>
+                    Benchmarked and fine-tuned Transformer models (<strong>T5, BART, GPT-2</strong>) to generate text adhering to strict lexical constraints. Evaluated using <strong>BLEU, ROUGE, METEOR</strong> metrics.
+                </div>
+                <div class="tech-row">
+                    <span class="pill">TensorFlow</span>
+                    <span class="pill">PyTorch</span>
+                    <span class="pill">Transformers</span>
+                    <span class="pill">Academic Writing</span>
                 </div>
             </div>
 
-            <!-- Job 3 -->
-            <div class="card reveal">
-                <div class="dot"></div>
-                <div class="card-header">
-                    <img src="tt.png" alt="TT" class="logo-icon" onerror="this.style.display='none'">
-                    <div>
-                        <div class="role">Data Scientist Intern</div>
-                        <div class="company">Tunisie Telecom</div>
+            <!-- JOB 3: TUNISIE TELECOM -->
+            <div class="exp-card reveal">
+                <div class="timeline-dot"></div>
+                <div class="exp-header">
+                    <div style="display:flex; align-items:center;">
+                        <img src="tt.png" alt="TT" class="exp-logo" onerror="this.style.display='none'">
+                        <div class="exp-title">
+                            <h3>Data Scientist Intern</h3>
+                            <span>Tunisie Telecom • Jul 2023 - Sep 2023</span>
+                        </div>
                     </div>
-                    <div class="date">Jul 2023 - Sep 2023</div>
                 </div>
-                <p style="color:var(--text-mute)">
-                    Processed IoT telemetry data from connected vehicles to predict network patterns and optimize coverage.
-                </p>
-                <div class="tags">
-                    <span class="tag">IoT</span>
-                    <span class="tag">Big Data</span>
-                    <span class="tag">Predictive ML</span>
+                <div class="exp-desc">
+                    <strong>IoT & Telemetry Analysis:</strong> Designed a pipeline to ingest large-scale data from connected vehicles.
+                    Built predictive ML models to forecast network congestion and connectivity loss. visualized results in Power BI.
+                </div>
+                <div class="tech-row">
+                    <span class="pill">IoT</span>
+                    <span class="pill">Big Data</span>
+                    <span class="pill">Predictive ML</span>
+                    <span class="pill">Power BI</span>
+                </div>
+            </div>
+
+            <!-- JOB 4: TUNISIE TELECOM (BI) -->
+            <div class="exp-card reveal">
+                <div class="timeline-dot"></div>
+                <div class="exp-header">
+                    <div style="display:flex; align-items:center;">
+                        <img src="tt.png" alt="TT" class="exp-logo" onerror="this.style.display='none'">
+                        <div class="exp-title">
+                            <h3>Web & Data Intern</h3>
+                            <span>Tunisie Telecom • Jan 2022 - Jul 2022</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exp-desc">
+                    Integrated Machine Learning with Web Technologies. Built a <strong>Symfony</strong> web dashboard that displayed real-time analytics generated by Python ML scripts.
+                </div>
+                <div class="tech-row">
+                    <span class="pill">Symfony (PHP)</span>
+                    <span class="pill">Python</span>
+                    <span class="pill">Web Dev</span>
+                </div>
+            </div>
+
+            <!-- JOB 5: SOTETEL -->
+            <div class="exp-card reveal">
+                <div class="timeline-dot"></div>
+                <div class="exp-header">
+                    <div style="display:flex; align-items:center;">
+                        <img src="sotetel.png" alt="Sotetel" class="exp-logo" onerror="this.style.display='none'">
+                        <div class="exp-title">
+                            <h3>BI Intern</h3>
+                            <span>SOTETEL • Summer 2021</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="exp-desc">
+                    Developed comprehensive dashboards using Power BI. Implemented ETL processes using <strong>SSIS and Talend</strong> to clean raw data before visualization.
+                </div>
+                <div class="tech-row">
+                    <span class="pill">ETL</span>
+                    <span class="pill">SSIS</span>
+                    <span class="pill">Talend</span>
+                    <span class="pill">SQL</span>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <section id="certifications" class="container section-pad">
-        <h2 style="font-size: 2.5rem; margin-bottom: 60px;">Certifications</h2>
-        <div class="grid">
+    <!-- Projects -->
+    <section id="projects" class="container section-pad">
+        <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 60px;">The Lab (Projects)</h2>
+        
+        <div class="project-grid">
             
-            <!-- NVIDIA -->
-            <div class="cert-card reveal">
-                <img src="nvidia.png" alt="NVIDIA" class="cert-logo" onerror="this.style.display='none'">
+            <!-- P1 -->
+            <div class="project-card reveal">
                 <div>
-                    <h4 style="font-size:1rem;">Building AI Agents</h4>
-                    <span style="font-size:0.8rem; color:var(--text-mute);">NVIDIA • 2025</span>
+                    <i class="fa-solid fa-project-diagram folder-icon"></i>
+                    <h3 class="project-title">Knowledge Graph Risk Manager</h3>
+                    <p class="project-detail">
+                        An automated recommender system for Project Risk Management.
+                        <br><br>
+                        <strong>The Logic:</strong> Uses NLP (SpaCy) to extract entities from the <strong>PMI Corpus</strong> and structures them into a Knowledge Graph to identify hidden risk relationships.
+                    </p>
+                </div>
+                <div class="tech-row">
+                    <span class="pill">NLP</span>
+                    <span class="pill">Knowledge Graphs</span>
+                    <span class="pill">SpaCy</span>
                 </div>
             </div>
 
-            <div class="cert-card reveal">
-                <img src="nvidia.png" alt="NVIDIA" class="cert-logo" onerror="this.style.display='none'">
+            <!-- P2 -->
+            <div class="project-card reveal">
                 <div>
-                    <h4 style="font-size:1rem;">Generative AI / Diffusion</h4>
-                    <span style="font-size:0.8rem; color:var(--text-mute);">NVIDIA • 2025</span>
+                    <i class="fa-solid fa-chart-line folder-icon"></i>
+                    <h3 class="project-title">Financial Market Forecasting</h3>
+                    <p class="project-detail">
+                        Advanced Time-Series Analysis for stock trading.
+                        <br><br>
+                        <strong>The Logic:</strong> Implemented <strong>Hierarchical Risk Parity (HRP)</strong> and <strong>LSTM</strong> networks to optimize portfolio weight allocation and minimize downside risk.
+                    </p>
+                </div>
+                <div class="tech-row">
+                    <span class="pill">LSTM</span>
+                    <span class="pill">HRP Model</span>
+                    <span class="pill">Finance</span>
                 </div>
             </div>
 
-            <!-- DeepLearning -->
-            <div class="cert-card reveal">
-                <img src="deeplearning.png" alt="DeepLearning" class="cert-logo" onerror="this.style.display='none'">
+            <!-- P3 -->
+            <div class="project-card reveal">
                 <div>
-                    <h4 style="font-size:1rem;">NLP with Attention</h4>
-                    <span style="font-size:0.8rem; color:var(--text-mute);">DeepLearning.AI • 2024</span>
+                    <i class="fa-solid fa-shield-halved folder-icon"></i>
+                    <h3 class="project-title">Network Intrusion Detection</h3>
+                    <p class="project-detail">
+                        Cybersecurity Classification System.
+                        <br><br>
+                        <strong>The Logic:</strong> Trained supervised ML models on the <strong>NSL-KDD dataset</strong> to classify network traffic patterns as "Normal" or "Malicious" in real-time.
+                    </p>
+                </div>
+                <div class="tech-row">
+                    <span class="pill">Scikit-Learn</span>
+                    <span class="pill">Cybersecurity</span>
+                    <span class="pill">Classification</span>
                 </div>
             </div>
 
-            <!-- Microsoft -->
-            <div class="cert-card reveal">
-                <img src="microsoft.png" alt="MS" class="cert-logo" onerror="this.style.display='none'">
+             <!-- P4 -->
+             <div class="project-card reveal">
                 <div>
-                    <h4 style="font-size:1rem;">Azure Cloud Services</h4>
-                    <span style="font-size:0.8rem; color:var(--text-mute);">Microsoft • 2024</span>
+                    <i class="fa-solid fa-hand-holding-heart folder-icon"></i>
+                    <h3 class="project-title">PIDEV Donation Platform</h3>
+                    <p class="project-detail">
+                        Full-stack application for item exchange and donations.
+                        <br><br>
+                        <strong>The Logic:</strong> Desktop (JavaFX) and Web (Symfony) integration. Used Graph API for viz and Twilio API for SMS notifications.
+                    </p>
+                </div>
+                <div class="tech-row">
+                    <span class="pill">JavaFX</span>
+                    <span class="pill">Symfony</span>
+                    <span class="pill">Twilio API</span>
                 </div>
             </div>
 
         </div>
     </section>
 
-    <section class="container section-pad contact">
-        <div class="badge">OPEN TO WORK</div>
-        <h2 style="font-size: 3rem; margin: 20px 0;">Let's Collaborate.</h2>
-        <p style="color:var(--text-mute); margin-bottom: 30px;">
-            Looking for an End-of-Study Internship (Feb 2025) where I can deploy scalable AI agents.
+    <!-- Certifications -->
+    <section id="certs" class="container section-pad">
+        <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 40px;">The Arsenal (Certifications)</h2>
+        
+        <!-- Category 1: Generative AI -->
+        <div class="reveal">
+            <span class="cert-section-title">GENERATIVE AI & LLMS</span>
+            <div class="cert-row">
+                <div class="cert-item">
+                    <img src="nvidia.png" class="cert-img">
+                    <div class="cert-info"><h4>Building AI Agents</h4><p>NVIDIA • 2025</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="nvidia.png" class="cert-img">
+                    <div class="cert-info"><h4>GenAI with Diffusion</h4><p>NVIDIA • 2025</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="nvidia.png" class="cert-img">
+                    <div class="cert-info"><h4>LLM Evaluation</h4><p>NVIDIA • 2025</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 2: NLP -->
+        <div class="reveal">
+            <span class="cert-section-title">NATURAL LANGUAGE PROCESSING</span>
+            <div class="cert-row">
+                <div class="cert-item">
+                    <img src="deeplearning.png" class="cert-img">
+                    <div class="cert-info"><h4>NLP with Attention Models</h4><p>DeepLearning.AI</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="deeplearning.png" class="cert-img">
+                    <div class="cert-info"><h4>NLP with Sequence Models</h4><p>DeepLearning.AI</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="deeplearning.png" class="cert-img">
+                    <div class="cert-info"><h4>Probabilistic Models</h4><p>DeepLearning.AI</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="deeplearning.png" class="cert-img">
+                    <div class="cert-info"><h4>Classification & Vector Spaces</h4><p>DeepLearning.AI</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category 3: Cloud & Infra -->
+        <div class="reveal">
+            <span class="cert-section-title">CLOUD & INFRASTRUCTURE</span>
+            <div class="cert-row">
+                <div class="cert-item">
+                    <img src="microsoft.png" class="cert-img">
+                    <div class="cert-info"><h4>Azure Cloud Services</h4><p>Microsoft</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="microsoft.png" class="cert-img">
+                    <div class="cert-info"><h4>Azure Security</h4><p>Microsoft</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="hashgraph.png" class="cert-img">
+                    <div class="cert-info"><h4>Hashgraph Developer</h4><p>The Hashgraph Association</p></div>
+                </div>
+                <div class="cert-item">
+                    <img src="ibm.png" class="cert-img">
+                    <div class="cert-info"><h4>EDA for Machine Learning</h4><p>IBM</p></div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Contact -->
+    <section class="container section-pad contact-box">
+        <div class="badge">AVAILABLE FOR HIRE</div>
+        <h2 style="font-size: 3rem; margin-bottom: 20px;">Let's Build Something Intelligent.</h2>
+        <p style="color: var(--text-muted); margin-bottom: 40px;">
+            Ready to deploy advanced AI solutions? I am available for an End-of-Study Internship starting Feb 2025.
         </p>
-        <a href="mailto:Emna.Rajhi@esprit.tn" class="btn btn-main">Get In Touch</a>
+        <a href="mailto:Emna.Rajhi@esprit.tn" class="hero-btn">Initialize Connection</a>
         
         <div class="socials">
-            <a href="https://linkedin.com/in/emna-rajhi" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://github.com/EmnaRajhi" class="social-link"><i class="fa-brands fa-github"></i></a>
-            <a href="mailto:Emna.Rajhi@esprit.tn" class="social-link"><i class="fa-regular fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/emna-rajhi" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/EmnaRajhi" class="social-btn"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:Emna.Rajhi@esprit.tn" class="social-btn"><i class="fa-regular fa-envelope"></i></a>
         </div>
     </section>
 
     <script>
-        // 1. Typewriter Effect
-        const textSpan = document.getElementById('typing-text');
-        const words = ["Multi-Agent Systems.", "LLM Orchestration.", "RAG Pipelines.", "Autonomous Drones."];
-        let wordIdx = 0, charIdx = 0, isDeleting = false;
+        // TYPEWRITER
+        const words = ["Autonomous Agents.", "RAG Systems.", "Knowledge Graphs.", "Smart Drones."];
+        let i = 0, timer;
 
         function type() {
-            const current = words[wordIdx];
-            if (isDeleting) {
-                textSpan.textContent = current.substring(0, charIdx - 1);
-                charIdx--;
-            } else {
-                textSpan.textContent = current.substring(0, charIdx + 1);
-                charIdx++;
-            }
+            const current = words[i % words.length];
+            const element = document.getElementById('type-text');
+            
+            // Simple typing logic
+            let isDeleting = false;
+            let charIndex = 0;
 
-            if (!isDeleting && charIdx === current.length) {
-                isDeleting = true;
-                setTimeout(type, 2000);
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                wordIdx = (wordIdx + 1) % words.length;
-                setTimeout(type, 500);
-            } else {
-                setTimeout(type, isDeleting ? 50 : 100);
+            function step() {
+                element.textContent = current.substring(0, charIndex);
+                if(!isDeleting) {
+                    if(charIndex < current.length) { charIndex++; setTimeout(step, 100); }
+                    else { isDeleting = true; setTimeout(step, 2000); }
+                } else {
+                    if(charIndex > 0) { charIndex--; setTimeout(step, 50); }
+                    else { i++; setTimeout(type, 500); }
+                }
             }
+            step();
         }
         type();
 
-        // 2. Scroll Reveal Animation
+        // SCROLL REVEAL
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
