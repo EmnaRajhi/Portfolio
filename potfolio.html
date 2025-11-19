@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emna Rajhi | AI & Agents Engineer</title>
+    
+    <!-- Fonts: Outfit (Headings) & Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;800&family=Space+Mono&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. PASTEL TECH PALETTE --- */
+        :root {
+            /* Backgrounds */
+            --bg-dark: #12101f;       /* Deep Plum/Navy */
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.08);
+            
+            /* Pastels (The 100k Look) */
+            --pastel-pink: #ffb7b2;
+            --pastel-purple: #c7ceea;
+            --pastel-mint: #b5ead7;
+            --pastel-lavender: #e2f0cb;
+            
+            /* Gradients */
+            --grad-main: linear-gradient(135deg, var(--pastel-pink), var(--pastel-purple));
+            --grad-glow: radial-gradient(circle, rgba(199, 206, 234, 0.15) 0%, transparent 70%);
+            
+            /* Text */
+            --text-white: #ffffff;
+            --text-mute: #aab0c6;
+        }
+
+        /* --- 2. RESET & BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* --- 3. FLOATING BACKGROUND BLOBS --- */
+        .blob-cont {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden;
+        }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.4;
+            animation: float 10s infinite alternate;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #624CAB; }
+        .blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #B66DFF; animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 300px; height: 300px; background: #00B4D8; opacity: 0.2; }
+
+        @keyframes float { from { transform: translate(0,0); } to { transform: translate(30px, 50px); } }
+
+        /* --- 4. UTILITIES --- */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .section-pad { padding: 120px 0; }
+        
+        .gradient-text {
+            background: var(--grad-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            font-weight: 800;
+        }
+
+        /* --- 5. NAV (FROSTED GLASS) --- */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 999;
+            padding: 15px 0;
+            background: rgba(18, 16, 31, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-flex { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            color: var(--text-mute); text-decoration: none; font-size: 0.9rem; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--pastel-pink); }
+
+        /* --- 6. HERO SECTION --- */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 60px; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; }
+        
+        .badge {
+            display: inline-block; padding: 6px 16px; border-radius: 50px;
+            background: rgba(255, 183, 178, 0.1); border: 1px solid rgba(255, 183, 178, 0.3);
+            color: var(--pastel-pink); font-family: 'Space Mono', monospace; font-size: 0.8rem;
+            margin-bottom: 20px;
+        }
+
+        h1 { font-family: 'Outfit', sans-serif; font-size: clamp(3rem, 5vw, 4.5rem); line-height: 1.1; margin-bottom: 20px; }
+        
+        .typewriter {
+            font-size: 1.4rem; color: var(--text-mute); margin-bottom: 40px; font-family: 'Inter', sans-serif;
+        }
+        .cursor { display: inline-block; width: 2px; height: 1.2em; background: var(--pastel-mint); animation: blink 1s infinite; vertical-align: middle; }
+
+        .btn {
+            padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; transition: 0.3s; display: inline-block;
+        }
+        .btn-main {
+            background: linear-gradient(90deg, #ffb7b2, #c7ceea); color: #12101f;
+            box-shadow: 0 10px 30px rgba(255, 183, 178, 0.3);
+        }
+        .btn-main:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(255, 183, 178, 0.5); }
+        
+        .profile-box {
+            position: relative; padding: 10px; border-radius: 30px;
+            background: var(--glass); border: 1px solid var(--border);
+        }
+        .profile-img {
+            width: 100%; border-radius: 20px; display: block;
+            filter: saturate(1.1); transition: 0.5s;
+        }
+        .profile-box:hover .profile-img { transform: scale(1.02); }
+
+        /* --- 7. EXPERIENCE (Connecting Lines) --- */
+        .exp-list { position: relative; padding-left: 30px; border-left: 2px solid var(--border); margin-left: 10px; }
+        
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            padding: 30px; border-radius: 20px; margin-bottom: 40px;
+            position: relative; transition: 0.4s; backdrop-filter: blur(10px);
+        }
+        .card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--pastel-purple);
+            transform: translateX(10px);
+        }
+        
+        .dot {
+            position: absolute; left: -41px; top: 30px;
+            width: 20px; height: 20px; background: var(--bg-dark);
+            border: 4px solid var(--pastel-pink); border-radius: 50%;
+        }
+
+        .card-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .logo-icon { width: 40px; height: 40px; object-fit: contain; margin-right: 15px; background: white; border-radius: 8px; padding: 4px; }
+        .role { font-size: 1.2rem; font-weight: 700; color: white; }
+        .company { color: var(--pastel-pink); font-family: 'Space Mono', monospace; }
+        .date { margin-left: auto; font-size: 0.85rem; color: var(--text-mute); }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .tag {
+            font-size: 0.75rem; padding: 6px 12px; border-radius: 20px;
+            background: rgba(181, 234, 215, 0.1); color: var(--pastel-mint);
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* --- 8. CERTIFICATIONS GRID --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        
+        .cert-card {
+            background: var(--bg-card); padding: 24px; border-radius: 16px;
+            border: 1px solid var(--border); display: flex; align-items: center; gap: 15px;
+            transition: 0.3s;
+        }
+        .cert-card:hover { border-color: var(--pastel-mint); transform: translateY(-5px); }
+        
+        .cert-logo { width: 45px; height: 45px; object-fit: contain; background: white; padding: 5px; border-radius: 50%; }
+
+        /* --- 9. CONTACT --- */
+        .contact { text-align: center; max-width: 600px; margin: 0 auto; }
+        .socials { display: flex; justify-content: center; gap: 25px; margin-top: 40px; }
+        .social-link {
+            width: 50px; height: 50px; border-radius: 50%; background: var(--glass);
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.2rem; transition: 0.3s; border: 1px solid var(--border);
+        }
+        .social-link:hover { background: var(--pastel-pink); color: var(--bg-dark); transform: scale(1.1); }
+
+        /* Animation Helper */
+        @keyframes blink { 50% { opacity: 0; } }
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media(max-width:768px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .date { display: none; } /* Hide dates on mobile for space */
+            .exp-list { border: none; padding: 0; margin: 0; }
+            .dot { display: none; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Blobs -->
+    <div class="blob-cont">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav>
+        <div class="container nav-flex">
+            <div class="logo">Emna<span style="color:var(--pastel-pink)">.</span>AI</div>
+            <div class="nav-links">
+                <a href="#experience">Experience</a>
+                <a href="#certifications">Certifications</a>
+                <a href="mailto:Emna.Rajhi@esprit.tn">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero container">
+        <div class="hero-grid">
+            <div>
+                <div class="badge">✨ AI AGENTS ARCHITECT</div>
+                <h1>Hi, I'm Emna Rajhi.<br><span class="gradient-text">Building Intelligent Systems.</span></h1>
+                
+                <div class="typewriter">
+                    Specialized in <span id="typing-text" style="color:var(--pastel-mint)"></span><span class="cursor"></span>
+                </div>
+
+                <a href="#experience" class="btn btn-main">See My Work</a>
+            </div>
+            
+            <div class="profile-box">
+                <!-- IMAGE PATH: Directly "profile.jpg" -->
+                <img src="profile.jpg" alt="Emna Rajhi" class="profile-img" onerror="this.style.display='none'">
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="container section-pad">
+        <h2 style="font-size: 2.5rem; margin-bottom: 60px;">Experience</h2>
+        
+        <div class="exp-list">
+            
+            <!-- Job 1 -->
+            <div class="card reveal">
+                <div class="dot"></div>
+                <div class="card-header">
+                    <!-- IMAGE PATH: Directly "farness.png" -->
+                    <img src="farness.png" alt="Farness" class="logo-icon" onerror="this.style.display='none'">
+                    <div>
+                        <div class="role">AI Intern (Agents & LLM)</div>
+                        <div class="company">Farness B2G</div>
+                    </div>
+                    <div class="date">Feb 2025 - Present</div>
+                </div>
+                <p style="color:var(--text-mute)">
+                    Designing a multi-agent system for autonomous drones. Orchestrating <strong>Llama 4</strong> via <strong>LangChain</strong> & <strong>RAG</strong> to execute complex missions. Using <strong>Qdrant</strong> for vector memory and Docker for deployment.
+                </p>
+                <div class="tags">
+                    <span class="tag">Multi-Agent</span>
+                    <span class="tag">LangChain</span>
+                    <span class="tag">RAG</span>
+                    <span class="tag">GenAI</span>
+                </div>
+            </div>
+
+            <!-- Job 2 -->
+            <div class="card reveal">
+                <div class="dot"></div>
+                <div class="card-header">
+                    <img src="esprit.png" alt="Esprit" class="logo-icon" onerror="this.style.display='none'">
+                    <div>
+                        <div class="role">Data Science Researcher</div>
+                        <div class="company">ESPRIT Lab</div>
+                    </div>
+                    <div class="date">Jun 2024 - Sep 2024</div>
+                </div>
+                <p style="color:var(--text-mute)">
+                    Conducted research on Constrained Text Generation. Fine-tuned Transformers (T5, BART, GPT-2) and published a scientific paper.
+                </p>
+                <div class="tags">
+                    <span class="tag">NLP</span>
+                    <span class="tag">PyTorch</span>
+                    <span class="tag">Research</span>
+                </div>
+            </div>
+
+            <!-- Job 3 -->
+            <div class="card reveal">
+                <div class="dot"></div>
+                <div class="card-header">
+                    <img src="tt.png" alt="TT" class="logo-icon" onerror="this.style.display='none'">
+                    <div>
+                        <div class="role">Data Scientist Intern</div>
+                        <div class="company">Tunisie Telecom</div>
+                    </div>
+                    <div class="date">Jul 2023 - Sep 2023</div>
+                </div>
+                <p style="color:var(--text-mute)">
+                    Processed IoT telemetry data from connected vehicles to predict network patterns and optimize coverage.
+                </p>
+                <div class="tags">
+                    <span class="tag">IoT</span>
+                    <span class="tag">Big Data</span>
+                    <span class="tag">Predictive ML</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="certifications" class="container section-pad">
+        <h2 style="font-size: 2.5rem; margin-bottom: 60px;">Certifications</h2>
+        <div class="grid">
+            
+            <!-- NVIDIA -->
+            <div class="cert-card reveal">
+                <img src="nvidia.png" alt="NVIDIA" class="cert-logo" onerror="this.style.display='none'">
+                <div>
+                    <h4 style="font-size:1rem;">Building AI Agents</h4>
+                    <span style="font-size:0.8rem; color:var(--text-mute);">NVIDIA • 2025</span>
+                </div>
+            </div>
+
+            <div class="cert-card reveal">
+                <img src="nvidia.png" alt="NVIDIA" class="cert-logo" onerror="this.style.display='none'">
+                <div>
+                    <h4 style="font-size:1rem;">Generative AI / Diffusion</h4>
+                    <span style="font-size:0.8rem; color:var(--text-mute);">NVIDIA • 2025</span>
+                </div>
+            </div>
+
+            <!-- DeepLearning -->
+            <div class="cert-card reveal">
+                <img src="deeplearning.png" alt="DeepLearning" class="cert-logo" onerror="this.style.display='none'">
+                <div>
+                    <h4 style="font-size:1rem;">NLP with Attention</h4>
+                    <span style="font-size:0.8rem; color:var(--text-mute);">DeepLearning.AI • 2024</span>
+                </div>
+            </div>
+
+            <!-- Microsoft -->
+            <div class="cert-card reveal">
+                <img src="microsoft.png" alt="MS" class="cert-logo" onerror="this.style.display='none'">
+                <div>
+                    <h4 style="font-size:1rem;">Azure Cloud Services</h4>
+                    <span style="font-size:0.8rem; color:var(--text-mute);">Microsoft • 2024</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="container section-pad contact">
+        <div class="badge">OPEN TO WORK</div>
+        <h2 style="font-size: 3rem; margin: 20px 0;">Let's Collaborate.</h2>
+        <p style="color:var(--text-mute); margin-bottom: 30px;">
+            Looking for an End-of-Study Internship (Feb 2025) where I can deploy scalable AI agents.
+        </p>
+        <a href="mailto:Emna.Rajhi@esprit.tn" class="btn btn-main">Get In Touch</a>
+        
+        <div class="socials">
+            <a href="https://linkedin.com/in/emna-rajhi" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/EmnaRajhi" class="social-link"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:Emna.Rajhi@esprit.tn" class="social-link"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+    </section>
+
+    <script>
+        // 1. Typewriter Effect
+        const textSpan = document.getElementById('typing-text');
+        const words = ["Multi-Agent Systems.", "LLM Orchestration.", "RAG Pipelines.", "Autonomous Drones."];
+        let wordIdx = 0, charIdx = 0, isDeleting = false;
+
+        function type() {
+            const current = words[wordIdx];
+            if (isDeleting) {
+                textSpan.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                textSpan.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            if (!isDeleting && charIdx === current.length) {
+                isDeleting = true;
+                setTimeout(type, 2000);
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                wordIdx = (wordIdx + 1) % words.length;
+                setTimeout(type, 500);
+            } else {
+                setTimeout(type, isDeleting ? 50 : 100);
+            }
+        }
+        type();
+
+        // 2. Scroll Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
